@@ -1,16 +1,11 @@
-/* =========================================================
-   PORTFOLIO SPECTRAL — feuille de style
-   Palette & type pensées pour l'ambiance hantée évolutive.
-   ========================================================= */
-
 :root {
-  --void:        #0a0612;   /* noir indigo, fond de base */
-  --abyss:       #140a24;   /* violet très sombre */
+  --void:        #0a0612;  
+  --abyss:       #140a24;  
   --violet:      #6b2fb3;
-  --violet-glow: #9d4edd;   /* halo */
-  --cyan:        #4dd0e1;   /* accent spectral */
-  --fog:         #ece7f5;   /* texte clair */
-  --ash:         #9b8fb5;   /* texte atténué */
+  --violet-glow: #9d4edd;   
+  --cyan:        #4dd0e1;  
+  --fog:         #ece7f5; 
+  --ash:         #9b8fb5;
 
   --display: "Syne", sans-serif;
   --body:    "Space Grotesk", sans-serif;
@@ -19,7 +14,7 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: auto; }      /* on laisse Lenis gérer le smooth */
+html { scroll-behavior: auto; }  
 
 body {
   background: var(--void);
@@ -31,7 +26,7 @@ body {
 
 a { color: inherit; }
 
-/* ===================== PRÉCHARGEMENT ===================== */
+
 .loader {
   position: fixed; inset: 0; z-index: 1000;
   background: var(--void);
@@ -52,11 +47,8 @@ a { color: inherit; }
   text-transform: uppercase; color: var(--ash); margin-top: 1rem;
 }
 
-/* ===================== STAGE FIXE ===================== */
 .stage { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
 
-/* Décors : chaque .bg porte l'image générée + un dégradé de secours
-   (si le PNG n'existe pas encore, c'est le dégradé qui s'affiche). */
 .bg {
   position: absolute; inset: 0;
   background-size: cover; background-position: center;
@@ -92,7 +84,6 @@ a { color: inherit; }
   box-shadow: inset 0 0 220px 60px rgba(5,3,10,.9);
 }
 
-/* ===================== CRÉATURE ===================== */
 .ghost {
   position: absolute; left: 50%; top: 50%;
   width: clamp(220px, 34vw, 460px); aspect-ratio: 1;
@@ -123,7 +114,6 @@ a { color: inherit; }
 .ghost__svg .eye { fill: var(--cyan); }
 .ghost__svg .mouth, .ghost__svg .grin { stroke: var(--cyan); stroke-width: 2.5; fill: var(--cyan); }
 
-/* ===================== EFFETS SPECTRAUX (fin) ===================== */
 .spectral {
   position: absolute; inset: 0; pointer-events: none; opacity: 0;
   background:
@@ -134,7 +124,6 @@ a { color: inherit; }
 }
 @keyframes pulse { 0%,100% { filter: hue-rotate(0) } 50% { filter: hue-rotate(40deg) } }
 
-/* ===================== JAUGE D'ÉVOLUTION ===================== */
 .meter {
   position: fixed; right: clamp(14px, 3vw, 40px); top: 50%; z-index: 5;
   transform: translateY(-50%);
@@ -159,7 +148,6 @@ a { color: inherit; }
 }
 .meter__stage.is-active { color: var(--cyan); text-shadow: 0 0 10px var(--cyan); }
 
-/* ===================== CONTENU ===================== */
 .content { position: relative; z-index: 2; }
 
 .panel {
@@ -219,10 +207,8 @@ a { color: inherit; }
 .contact__socials a { text-decoration: none; }
 .contact__socials a:hover { color: var(--cyan); }
 
-/* Apparitions au scroll */
 .reveal { opacity: 0; transform: translateY(28px); }
 
-/* ===================== ACCESSIBILITÉ ===================== */
 :focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -231,7 +217,7 @@ a { color: inherit; }
 }
 
 @media (max-width: 700px) {
-  .meter { display: none; }                 /* on libère l'écran sur mobile */
+  .meter { display: none; }                
   .ghost { width: 60vw; }
   .panel { padding: 14vh 1.4rem; }
 }
