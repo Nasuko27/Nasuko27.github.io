@@ -1,47 +1,60 @@
-# Portfolio Spectral — squelette scroll
+# Nasuko — Portfolio
 
-Site statique : un fantôme qui évolue (3 stades) pendant qu'on défile, les décors
-se relaient en fondu, et la jauge d'évolution se remplit. Aucun PHP, 100 % client.
+Portfolio personnel en scroll narratif : un fantôme évolue en trois stades au fil
+du défilement, pendant que les décors se relaient en fondu derrière lui. Inspiré
+de l'esthétique des sites "scrollytelling" modernes, sans framework — du HTML/CSS/JS
+pur, 100 % statique.
+
+🔗 **Site en ligne :** https://nasuko27.github.io
+
+## Le concept
+
+Une seule progression de scroll (0 → 100 %) pilote toute la scène :
+
+| Étape         | Décor                          | Créature   |
+|---------------|---------------------------------|------------|
+| 0 – 30 %      | Plaine brumeuse, manoir au loin | Fantominus |
+| 30 % – 65 %   | Intérieur du manoir hanté       | Spectrum   |
+| 65 % – 100 %  | Dimension spectrale             | Ectoplasma |
+
+Le décor fait un fondu enchaîné entre les trois illustrations, le fantôme change
+de forme et grossit légèrement à chaque palier, et des effets spectraux (scanlines,
+lueurs) montent en intensité vers la fin. Une jauge d'évolution sur le côté droit
+indique la progression en temps réel.
+
+## Stack technique
+
+- **GSAP + ScrollTrigger** — orchestration des animations liées au scroll
+- **Lenis** — smooth scroll
+- **Vanilla JS/CSS** — aucun framework, aucune dépendance à installer (tout est
+  chargé via CDN)
+- Respecte `prefers-reduced-motion` (désactive les animations si l'utilisateur le demande)
+
+## Structure du projet
+
+```
+index.html
+css/style.css
+js/main.js
+assets/
+  bg/        → décors (01-plaine, 02-manoir, 03-spectral)
+  ghost/     → les 3 stades du fantôme (PNG transparents)
+  cv.pdf     → CV téléchargeable
+  tinyicon.png → favicon
+```
 
 ## Lancer en local
-Ouvre le dossier dans VS Code, installe l'extension **Live Server**, clic droit sur
-`index.html` → *Open with Live Server*. Ça tourne déjà **sans aucun asset** (décors
-en dégradés de secours + fantômes en SVG) → tu peux tester le scroll tout de suite.
 
-## Où déposer les images Gemini
-Garde exactement ces noms :
-
-```
-assets/bg/01-plaine.jpg      ← Décor 1 (plaine brumeuse / manoir au loin)
-assets/bg/02-manoir.jpg      ← Décor 2 (intérieur du manoir hanté)
-assets/bg/03-spectral.jpg    ← Décor 3 (dimension spectrale)
-
-assets/ghost/stade1.png      ← Créature gazeuse   (PNG transparent)
-assets/ghost/stade2.png      ← Créature spectrale  (PNG transparent)
-assets/ghost/stade3.png      ← Créature ectoplasme (PNG transparent)
-```
-
-Dès qu'un fichier est là, il remplace automatiquement son placeholder. Tu peux les
-ajouter un par un. (`.jpg` ou `.png` pour les décors — si tu changes l'extension,
-mets-la à jour dans `css/style.css` et `js/main.js`.)
+Ouvre le dossier dans VS Code, installe l'extension **Live Server**, puis clic
+droit sur `index.html` → *Open with Live Server*.
 
 ## Régler le tempo de l'évolution
-Tout est dans `js/main.js`, fonction `updateScene()`. Les nombres sont des **% de
-scroll** (0 = haut, 1 = bas) :
 
-- `ramp(p, 0.30, 0.44)` → la plaine se transforme en manoir entre 30 % et 44 %
-- `ramp(p, 0.34, 0.48)` → le fantôme passe au stade 2
-- `ramp(p, 0.62, 0.76)` → passage au stade 3
-- `ramp(p, 0.72, 1)`    → montée des effets spectraux
+Tout se passe dans `js/main.js`, fonction `updateScene()`. Les bornes sont des
+pourcentages de scroll (0 = haut de page, 1 = bas) qui contrôlent les fondus de
+décor, le relais des formes du fantôme et la montée des effets spectraux.
 
-Décale ces bornes pour synchroniser les évolutions avec tes sections.
+## Note
 
-## Mettre en ligne (gratuit)
-- **GitHub Pages** : push le dossier dans un repo `tonpseudo.github.io`.
-- **Netlify** : glisse-dépose le dossier sur netlify.com → URL `xxx.netlify.app`.
-
-## Stack
-GSAP + ScrollTrigger (animation au scroll), Lenis (smooth scroll), vanilla JS/CSS.
-Tout chargé via CDN, rien à installer.
-```
-```
+Les créatures sont des illustrations originales générées (IA), dans l'esprit
+d'une ligne d'évolution fantomatique — projet personnel non commercial.
