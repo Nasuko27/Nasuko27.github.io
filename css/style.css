@@ -1,0 +1,231 @@
+/* =========================================================
+   PORTFOLIO SPECTRAL — feuille de style
+   Palette & type pensées pour l'ambiance hantée évolutive.
+   ========================================================= */
+
+:root {
+  --void:        #0a0612;   /* noir indigo, fond de base */
+  --abyss:       #140a24;   /* violet très sombre */
+  --violet:      #6b2fb3;
+  --violet-glow: #9d4edd;   /* halo */
+  --cyan:        #4dd0e1;   /* accent spectral */
+  --fog:         #ece7f5;   /* texte clair */
+  --ash:         #9b8fb5;   /* texte atténué */
+
+  --display: "Syne", sans-serif;
+  --body:    "Space Grotesk", sans-serif;
+  --mono:    "JetBrains Mono", monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: auto; }      /* on laisse Lenis gérer le smooth */
+
+body {
+  background: var(--void);
+  color: var(--fog);
+  font-family: var(--body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a { color: inherit; }
+
+/* ===================== PRÉCHARGEMENT ===================== */
+.loader {
+  position: fixed; inset: 0; z-index: 1000;
+  background: var(--void);
+  display: grid; place-items: center;
+  transition: opacity .8s ease, visibility .8s;
+}
+.loader.is-done { opacity: 0; visibility: hidden; }
+.loader__core { text-align: center; }
+.loader__count {
+  font-family: var(--display); font-weight: 800;
+  font-size: clamp(4rem, 14vw, 9rem); line-height: 1;
+  color: var(--fog);
+  text-shadow: 0 0 40px rgba(157, 78, 221, .55);
+}
+.loader__pct { font-size: .35em; color: var(--violet-glow); margin-left: .1em; }
+.loader__label {
+  font-family: var(--mono); font-size: .8rem; letter-spacing: .35em;
+  text-transform: uppercase; color: var(--ash); margin-top: 1rem;
+}
+
+/* ===================== STAGE FIXE ===================== */
+.stage { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
+
+/* Décors : chaque .bg porte l'image générée + un dégradé de secours
+   (si le PNG n'existe pas encore, c'est le dégradé qui s'affiche). */
+.bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  will-change: opacity;
+}
+.bg--1 {
+  opacity: 1;
+  background-image: url("../assets/bg/01-plaine.jpg"),
+    radial-gradient(120% 90% at 50% 110%, #1d1235 0%, #0a0612 70%);
+}
+.bg--2 {
+  opacity: 0;
+  background-image: url("../assets/bg/02-manoir.jpg"),
+    radial-gradient(100% 80% at 50% 30%, #2a1748 0%, #0a0612 75%);
+}
+.bg--3 {
+  opacity: 0;
+  background-image: url("../assets/bg/03-spectral.jpg"),
+    radial-gradient(120% 120% at 50% 50%, #3a1d63 0%, #120a24 55%, #05030a 100%);
+}
+
+.fog {
+  position: absolute; inset: -10%;
+  background:
+    radial-gradient(60% 50% at 20% 80%, rgba(157,78,221,.10), transparent 60%),
+    radial-gradient(50% 40% at 85% 30%, rgba(77,208,225,.08), transparent 60%);
+  animation: drift 28s ease-in-out infinite alternate;
+}
+@keyframes drift { to { transform: translate3d(3%, -2%, 0) scale(1.08); } }
+
+.vignette {
+  position: absolute; inset: 0; pointer-events: none;
+  box-shadow: inset 0 0 220px 60px rgba(5,3,10,.9);
+}
+
+/* ===================== CRÉATURE ===================== */
+.ghost {
+  position: absolute; left: 50%; top: 50%;
+  width: clamp(220px, 34vw, 460px); aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  animation: float 6s ease-in-out infinite;
+  will-change: transform;
+}
+@keyframes float {
+  0%, 100% { transform: translate(-50%, -50%); }
+  50%      { transform: translate(-50%, calc(-50% - 22px)); }
+}
+.ghost__form { position: absolute; inset: 0; opacity: 0; will-change: opacity; }
+.ghost__form[data-stage="1"] { opacity: 1; }
+
+.ghost__img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: contain; opacity: 0; transition: opacity .4s ease;
+  filter: drop-shadow(0 0 35px rgba(157,78,221,.5));
+}
+.ghost__img.is-loaded { opacity: 1; z-index: 1; }
+.ghost__img.is-loaded + .ghost__svg { display: none; }
+
+.ghost__svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ghost__svg path:first-of-type {
+  fill: rgba(123, 58, 180, .82);
+  filter: drop-shadow(0 0 30px rgba(157,78,221,.65));
+}
+.ghost__svg .eye { fill: var(--cyan); }
+.ghost__svg .mouth, .ghost__svg .grin { stroke: var(--cyan); stroke-width: 2.5; fill: var(--cyan); }
+
+/* ===================== EFFETS SPECTRAUX (fin) ===================== */
+.spectral {
+  position: absolute; inset: 0; pointer-events: none; opacity: 0;
+  background:
+    repeating-linear-gradient(0deg, rgba(77,208,225,.05) 0 2px, transparent 2px 4px),
+    radial-gradient(80% 80% at 50% 50%, rgba(157,78,221,.25), transparent 70%);
+  mix-blend-mode: screen;
+  animation: pulse 3.5s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100% { filter: hue-rotate(0) } 50% { filter: hue-rotate(40deg) } }
+
+/* ===================== JAUGE D'ÉVOLUTION ===================== */
+.meter {
+  position: fixed; right: clamp(14px, 3vw, 40px); top: 50%; z-index: 5;
+  transform: translateY(-50%);
+  font-family: var(--mono); font-size: .62rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--ash);
+}
+.meter__rail {
+  position: relative;
+  width: 3px; height: 34vh; background: rgba(255,255,255,.08);
+  border-radius: 3px; overflow: visible;
+}
+.meter__fill {
+  width: 100%; height: 0%;
+  background: linear-gradient(var(--cyan), var(--violet-glow));
+  box-shadow: 0 0 12px var(--violet-glow);
+  border-radius: 3px;
+}
+.meter__stage {
+  position: absolute; right: 14px;
+  transform: translateY(-50%);
+  white-space: nowrap;
+}
+.meter__stage.is-active { color: var(--cyan); text-shadow: 0 0 10px var(--cyan); }
+
+/* ===================== CONTENU ===================== */
+.content { position: relative; z-index: 2; }
+
+.panel {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 12vh clamp(1.5rem, 8vw, 9rem);
+  max-width: 1100px;
+}
+.panel--hero { align-items: flex-start; }
+.panel--contact { align-items: center; text-align: center; min-height: 100vh; }
+
+.eyebrow, .tag {
+  font-family: var(--mono); font-size: .75rem; letter-spacing: .35em;
+  text-transform: uppercase; color: var(--cyan); margin-bottom: 1.4rem;
+}
+.hero__title {
+  font-family: var(--display); font-weight: 800;
+  font-size: clamp(3.5rem, 17vw, 13rem); line-height: .9;
+  letter-spacing: -.02em;
+  text-shadow: 0 0 60px rgba(107,47,179,.6);
+}
+.hero__sub { font-size: clamp(1.1rem, 2.4vw, 1.6rem); color: var(--fog); margin-top: 1.5rem; max-width: 32ch; }
+.btn-cv {
+  display: inline-block; margin-top: 2.5rem;
+  font-family: var(--mono); font-size: .85rem; font-weight: 500;
+  letter-spacing: .15em; text-transform: uppercase; text-decoration: none;
+  color: var(--void); background: var(--cyan);
+  padding: .9em 2.2em; border-radius: 4px;
+  box-shadow: 0 0 24px rgba(77,208,225,.3), inset 0 0 0 1px rgba(77,208,225,.5);
+  transition: background .3s, box-shadow .3s, transform .15s;
+}
+.btn-cv:hover {
+  background: var(--fog); color: var(--void);
+  box-shadow: 0 0 36px rgba(77,208,225,.5), inset 0 0 0 1px var(--cyan);
+  transform: translateY(-2px);
+}
+.hero__scroll { font-family: var(--mono); font-size: .8rem; letter-spacing: .25em; color: var(--ash); margin-top: 2rem; text-transform: uppercase; }
+
+.lede { font-size: clamp(1.4rem, 3.5vw, 2.6rem); line-height: 1.35; max-width: 22ch; font-family: var(--display); font-weight: 600; }
+.lede em { color: var(--ash); font-size: .55em; font-style: normal; font-family: var(--body); font-weight: 400; display: block; margin-top: 1rem; }
+
+.project { padding: 2.2rem 0; border-top: 1px solid rgba(255,255,255,.1); }
+.project__title { font-family: var(--display); font-weight: 700; font-size: clamp(1.8rem, 5vw, 3.4rem); }
+.project__meta { font-family: var(--mono); font-size: .8rem; color: var(--cyan); margin: .6rem 0 1rem; letter-spacing: .1em; }
+.project__desc { color: var(--ash); max-width: 50ch; font-size: 1.05rem; line-height: 1.6; }
+
+.contact__title { font-family: var(--display); font-weight: 700; font-size: clamp(2rem, 7vw, 5rem); line-height: 1; margin-bottom: 2rem; }
+.contact__link { font-family: var(--mono); font-size: clamp(1rem, 3vw, 1.6rem); color: var(--cyan); text-decoration: none; border-bottom: 1px solid var(--cyan); padding-bottom: 4px; }
+.contact__link:hover { color: var(--fog); }
+.contact__socials { margin-top: 2.5rem; font-family: var(--mono); font-size: .85rem; letter-spacing: .15em; color: var(--ash); }
+.contact__socials a { text-decoration: none; }
+.contact__socials a:hover { color: var(--cyan); }
+
+/* Apparitions au scroll */
+.reveal { opacity: 0; transform: translateY(28px); }
+
+/* ===================== ACCESSIBILITÉ ===================== */
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ghost, .fog, .spectral { animation: none !important; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
+
+@media (max-width: 700px) {
+  .meter { display: none; }                 /* on libère l'écran sur mobile */
+  .ghost { width: 60vw; }
+  .panel { padding: 14vh 1.4rem; }
+}
