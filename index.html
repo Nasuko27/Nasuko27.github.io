@@ -12,7 +12,6 @@
 </head>
 <body>
 
-  <!-- ========================= PRÉCHARGEMENT ========================= -->
   <div class="loader" id="loader">
     <div class="loader__core">
       <div class="loader__count"><span id="loaderNum">0</span><span class="loader__pct">%</span></div>
@@ -20,11 +19,9 @@
     </div>
   </div>
 
-  <!-- ========================= STAGE FIXE (fond + créature) ========================= -->
-  <!-- Reste en position fixe pendant que le contenu défile par-dessus -->
+
   <div class="stage" id="stage" aria-hidden="true">
 
-    <!-- Les 3 décors. Le 2e fond (gradient) est un fallback si l'image n'existe pas encore. -->
     <div class="bg bg--1" data-bg></div>
     <div class="bg bg--2" data-bg></div>
     <div class="bg bg--3" data-bg></div>
@@ -32,11 +29,9 @@
     <div class="fog"></div>
     <div class="vignette"></div>
 
-    <!-- La créature : 3 formes superposées qui se relaient au scroll. -->
     <div class="ghost" id="ghost">
       <div class="ghost__form" data-stage="1">
         <img class="ghost__img" alt="" data-src="assets/ghost/stade1.png" />
-        <!-- Fallback SVG visible tant que le vrai PNG n'est pas déposé -->
         <svg class="ghost__svg" viewBox="0 0 100 100" aria-hidden="true">
           <path d="M50 14c-17 0-29 13-29 31v34c0 4 5 6 8 3l5-5 6 6c2 2 5 2 7 0l3-3 3 3c2 2 5 2 7 0l6-6 5 5c3 3 8 1 8-3V45c0-18-12-31-29-31z"/>
           <circle class="eye" cx="40" cy="44" r="6"/><circle class="eye" cx="60" cy="44" r="6"/>
@@ -60,11 +55,9 @@
       </div>
     </div>
 
-    <!-- Effets spectraux qui montent en intensité vers la fin -->
     <div class="spectral" id="spectral"></div>
   </div>
 
-  <!-- ========================= JAUGE D'ÉVOLUTION (signature) ========================= -->
   <aside class="meter" id="meter" aria-hidden="true">
     <div class="meter__rail">
       <div class="meter__fill" id="meterFill"></div>
@@ -74,7 +67,6 @@
     </div>
   </aside>
 
-  <!-- ========================= CONTENU (défile au-dessus du stage) ========================= -->
   <main class="content">
 
     <section class="panel panel--hero" id="hero">
@@ -128,7 +120,6 @@
 
   </main>
 
-  <!-- ========================= LIBS + SCRIPT ========================= -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
