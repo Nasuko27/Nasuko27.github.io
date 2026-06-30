@@ -195,6 +195,13 @@ a { color: inherit; }
 .lede { font-size: clamp(1.4rem, 3.5vw, 2.6rem); line-height: 1.35; max-width: 22ch; font-family: var(--display); font-weight: 600; }
 .lede em { color: var(--ash); font-size: .55em; font-style: normal; font-family: var(--body); font-weight: 400; display: block; margin-top: 1rem; }
 
+.panel--apropos { max-width: 1500px; }
+.bio {
+  font-family: var(--body); font-weight: 400; color: var(--fog);
+  font-size: clamp(1.15rem, 2.1vw, 1.7rem); line-height: 1.75;
+  max-width: 75ch;
+}
+
 .project { padding: 2.2rem 0; border-top: 1px solid rgba(255,255,255,.1); }
 .project__title { font-family: var(--display); font-weight: 700; font-size: clamp(1.8rem, 5vw, 3.4rem); }
 .project__meta { font-family: var(--mono); font-size: .8rem; color: var(--cyan); margin: .6rem 0 1rem; letter-spacing: .1em; }
