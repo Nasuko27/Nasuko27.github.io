@@ -56,5 +56,4 @@ décor, le relais des formes du fantôme et la montée des effets spectraux.
 
 ## Note
 
-Les créatures sont des illustrations originales générées (IA), dans l'esprit
-d'une ligne d'évolution fantomatique — projet personnel non commercial.
+Les créatures sont des illustrations originales appartenant à la Pokémon company — projet personnel non commercial.
